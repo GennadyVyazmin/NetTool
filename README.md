@@ -16,6 +16,33 @@ Stack:
 - SQLite
 - Telegram Web App
 
+## Turnkey install on Ubuntu 22.04
+
+There is now an installer script that prepares the server end-to-end:
+
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+What it does:
+
+- installs Ubuntu packages
+- creates `.venv`
+- installs Python requirements
+- asks for your bot token
+- asks for the public Web App URL
+- writes `.env`
+- installs `systemd` units
+- installs `nginx` config
+- optionally requests a Let's Encrypt certificate
+
+The installer expects:
+
+- Ubuntu 22.04 or a similar Ubuntu server
+- a public domain or HTTPS endpoint for Telegram Web App
+- DNS already pointed to the server if you want automatic TLS
+
 ## Project layout
 
 - `app/main.py` - FastAPI app and API routes
@@ -77,6 +104,12 @@ The bot Web App URL must be public and served over HTTPS. A typical production s
 - FastAPI behind `nginx`
 - TLS via `certbot`
 - two `systemd` services: one for `run.py`, one for `bot.py`
+
+Ready-made templates are included in:
+
+- `deploy/systemd/nettool-api.service.template`
+- `deploy/systemd/nettool-bot.service.template`
+- `deploy/nginx/nettool.conf.template`
 
 ## Example systemd service for API
 

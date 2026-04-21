@@ -46,6 +46,11 @@ async def index() -> FileResponse:
     return FileResponse(STATIC_DIR / "index.html")
 
 
+@app.get("/healthz")
+async def healthcheck() -> dict:
+    return {"ok": True}
+
+
 @app.post("/api/ping", response_model=PingResponse)
 async def ping_api(payload: NetworkTargetRequest) -> PingResponse:
     command, output = await ping_target(payload.target)
