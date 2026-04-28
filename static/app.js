@@ -8,6 +8,7 @@ if (telegram) {
 const state = {
   initData: telegram?.initData || "",
   favorites: [],
+  theme: localStorage.getItem("nettool-theme") || "neon",
 };
 
 const els = {
@@ -20,6 +21,7 @@ const els = {
   userBadge: document.getElementById("userBadge"),
   portCheckButton: document.getElementById("portCheckButton"),
   refreshFavorites: document.getElementById("refreshFavorites"),
+  themeSelect: document.getElementById("themeSelect"),
 };
 
 const actionButtons = Array.from(document.querySelectorAll("[data-action]"));
@@ -34,10 +36,16 @@ document.addEventListener("gesturestart", (event) => event.preventDefault());
 document.addEventListener("gesturechange", (event) => event.preventDefault());
 document.addEventListener("touchmove", preventZoomGesture, { passive: false });
 
+function applyTheme(theme) {
+  state.theme = ["neon", "chrome", "void"].includes(theme) ? theme : "neon";
+  document.body.dataset.theme = state.theme;
+  els.themeSelect.value = state.theme;
+  localStorage.setItem("nettool-theme", state.theme);
+}
+
 function setStatus(text, isError = false) {
   els.status.textContent = text;
-  els.status.style.background = isError ? "rgba(239, 68, 68, 0.14)" : "rgba(34, 197, 94, 0.14)";
-  els.status.style.color = isError ? "#fecaca" : "#bbf7d0";
+  els.status.classList.toggle("is-error", isError);
 }
 
 function setOutput(value) {
@@ -205,6 +213,7 @@ actionButtons.forEach((button) => {
 
 els.portCheckButton.addEventListener("click", checkPort);
 els.refreshFavorites.addEventListener("click", loadFavorites);
+els.themeSelect.addEventListener("change", () => applyTheme(els.themeSelect.value));
 
 const telegramUser = telegram?.initDataUnsafe?.user;
 if (telegramUser) {
@@ -213,5 +222,6 @@ if (telegramUser) {
   els.userBadge.textContent = "Browser preview";
 }
 
+applyTheme(state.theme);
 renderFavorites();
 loadFavorites();

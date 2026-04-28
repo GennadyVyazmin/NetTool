@@ -12,15 +12,36 @@
   </head>
   <body>
     <main class="app-shell">
+      <section class="topbar">
+        <div class="brand-strip">
+          <span class="brand-kicker">Night City Console</span>
+          <span class="brand-name">NetTool</span>
+        </div>
+        <label class="theme-switcher" for="themeSelect">
+          <span>Theme</span>
+          <select id="themeSelect" aria-label="Select theme">
+            <option value="neon">Neon Grid</option>
+            <option value="chrome">Chrome Heat</option>
+            <option value="void">Blackwall</option>
+          </select>
+        </label>
+      </section>
+
       <section class="hero-card">
-        <div>
+        <div class="hero-copy-block">
           <p class="eyebrow">Telegram Mini App</p>
           <h1>NetTool</h1>
           <p class="hero-copy">
-            Ping, traceroute, port checks, server geo lookup, and favorite hosts in one panel.
+            Run reconnaissance, inspect routes, locate hosts, and keep mission-critical servers pinned.
           </p>
         </div>
-        <div class="hero-badge" id="userBadge">Guest mode</div>
+        <div class="hero-side">
+          <div class="hero-badge" id="userBadge">Guest mode</div>
+          <div class="hero-panel">
+            <span class="hero-panel-label">Status</span>
+            <strong>Link stable</strong>
+          </div>
+        </div>
       </section>
 
       <section class="card">
@@ -55,7 +76,7 @@
           <div class="section-head">
             <div>
               <p class="eyebrow">Results</p>
-              <h2>Output</h2>
+              <h2>Signal Feed</h2>
             </div>
             <span class="status-pill" id="statusPill">Idle</span>
           </div>
@@ -66,7 +87,7 @@
           <div class="section-head">
             <div>
               <p class="eyebrow">Favorites</p>
-              <h2>Your servers</h2>
+              <h2>Saved Nodes</h2>
             </div>
             <button id="refreshFavorites" class="secondary compact">Refresh</button>
           </div>
