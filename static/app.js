@@ -33,6 +33,39 @@ function applyTheme(theme) {
   localStorage.setItem("nettool-theme", state.theme);
 }
 
+function bindNestedScrollShield(element) {
+  if (!element) {
+    return;
+  }
+
+  let startY = 0;
+
+  element.addEventListener("touchstart", (event) => {
+    if (event.touches.length !== 1) {
+      return;
+    }
+    startY = event.touches[0].clientY;
+    event.stopPropagation();
+  }, { passive: true });
+
+  element.addEventListener("touchmove", (event) => {
+    if (event.touches.length !== 1) {
+      return;
+    }
+
+    const currentY = event.touches[0].clientY;
+    const movingDown = currentY > startY;
+    const atTop = element.scrollTop <= 0;
+    const atBottom = element.scrollTop + element.clientHeight >= element.scrollHeight - 1;
+
+    event.stopPropagation();
+
+    if ((movingDown && atTop) || (!movingDown && atBottom)) {
+      return;
+    }
+  }, { passive: true });
+}
+
 function setStatus(text, isError = false) {
   els.status.textContent = text;
   els.status.classList.toggle("is-error", isError);
@@ -213,5 +246,6 @@ if (telegramUser) {
 }
 
 applyTheme(state.theme);
+bindNestedScrollShield(els.output);
 renderFavorites();
 loadFavorites();
