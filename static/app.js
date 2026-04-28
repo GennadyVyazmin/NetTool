@@ -9,6 +9,7 @@ const state = {
   initData: telegram?.initData || "",
   favorites: [],
   theme: localStorage.getItem("nettool-theme") || "neon",
+  isAndroid: /Android/i.test(window.navigator.userAgent || ""),
 };
 
 const els = {
@@ -64,6 +65,52 @@ function bindNestedScrollShield(element) {
       return;
     }
   }, { passive: true });
+}
+
+function bindAndroidManualScroll(element) {
+  if (!element || !state.isAndroid) {
+    return;
+  }
+
+  let startY = 0;
+  let startScrollTop = 0;
+  let isTracking = false;
+
+  element.addEventListener("touchstart", (event) => {
+    if (event.touches.length !== 1) {
+      return;
+    }
+
+    if (element.scrollHeight <= element.clientHeight) {
+      return;
+    }
+
+    isTracking = true;
+    startY = event.touches[0].clientY;
+    startScrollTop = element.scrollTop;
+  }, { passive: true });
+
+  element.addEventListener("touchmove", (event) => {
+    if (!isTracking || event.touches.length !== 1) {
+      return;
+    }
+
+    const currentY = event.touches[0].clientY;
+    const deltaY = startY - currentY;
+    const maxScrollTop = element.scrollHeight - element.clientHeight;
+    const nextScrollTop = Math.max(0, Math.min(maxScrollTop, startScrollTop + deltaY));
+
+    element.scrollTop = nextScrollTop;
+    event.preventDefault();
+    event.stopPropagation();
+  }, { passive: false });
+
+  const stopTracking = () => {
+    isTracking = false;
+  };
+
+  element.addEventListener("touchend", stopTracking, { passive: true });
+  element.addEventListener("touchcancel", stopTracking, { passive: true });
 }
 
 function setStatus(text, isError = false) {
@@ -247,5 +294,6 @@ if (telegramUser) {
 
 applyTheme(state.theme);
 bindNestedScrollShield(els.output);
+bindAndroidManualScroll(els.output);
 renderFavorites();
 loadFavorites();
