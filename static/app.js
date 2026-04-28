@@ -2,6 +2,7 @@ const telegram = window.Telegram?.WebApp;
 if (telegram) {
   telegram.ready();
   telegram.expand();
+  telegram.disableVerticalSwipes?.();
 }
 
 const state = {
@@ -22,6 +23,16 @@ const els = {
 };
 
 const actionButtons = Array.from(document.querySelectorAll("[data-action]"));
+
+function preventZoomGesture(event) {
+  if (event.touches && event.touches.length > 1) {
+    event.preventDefault();
+  }
+}
+
+document.addEventListener("gesturestart", (event) => event.preventDefault());
+document.addEventListener("gesturechange", (event) => event.preventDefault());
+document.addEventListener("touchmove", preventZoomGesture, { passive: false });
 
 function setStatus(text, isError = false) {
   els.status.textContent = text;
