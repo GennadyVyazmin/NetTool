@@ -26,16 +26,6 @@ const els = {
 
 const actionButtons = Array.from(document.querySelectorAll("[data-action]"));
 
-function preventZoomGesture(event) {
-  if (event.touches && event.touches.length > 1) {
-    event.preventDefault();
-  }
-}
-
-document.addEventListener("gesturestart", (event) => event.preventDefault());
-document.addEventListener("gesturechange", (event) => event.preventDefault());
-document.addEventListener("touchmove", preventZoomGesture, { passive: false });
-
 function applyTheme(theme) {
   state.theme = ["neon", "chrome", "void"].includes(theme) ? theme : "neon";
   document.body.dataset.theme = state.theme;
