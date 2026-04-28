@@ -11,90 +11,92 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body>
-    <main class="app-shell">
-      <section class="topbar">
-        <div class="brand-strip">
-          <span class="brand-kicker">Night City Console</span>
-          <span class="brand-name">NetTool</span>
-        </div>
-        <label class="theme-switcher" for="themeSelect">
-          <span>Theme</span>
-          <select id="themeSelect" aria-label="Select theme">
-            <option value="neon">Neon Grid</option>
-            <option value="chrome">Chrome Heat</option>
-            <option value="void">Blackwall</option>
-          </select>
-        </label>
-      </section>
-
-      <section class="hero-card">
-        <div class="hero-copy-block">
-          <p class="eyebrow">Telegram Mini App</p>
-          <h1>NetTool</h1>
-          <p class="hero-copy">
-            Run reconnaissance, inspect routes, locate hosts, and keep mission-critical servers pinned.
-          </p>
-        </div>
-        <div class="hero-side">
-          <div class="hero-badge" id="userBadge">Guest mode</div>
-          <div class="hero-panel">
-            <span class="hero-panel-label">Status</span>
-            <strong>Link stable</strong>
+    <div class="app-root">
+      <main class="app-shell">
+        <section class="topbar">
+          <div class="brand-strip">
+            <span class="brand-kicker">Night City Console</span>
+            <span class="brand-name">NetTool</span>
           </div>
-        </div>
-      </section>
+          <label class="theme-switcher" for="themeSelect">
+            <span>Theme</span>
+            <select id="themeSelect" aria-label="Select theme">
+              <option value="neon">Neon Grid</option>
+              <option value="chrome">Chrome Heat</option>
+              <option value="void">Blackwall</option>
+            </select>
+          </label>
+        </section>
 
-      <section class="card">
-        <label class="field-label" for="targetInput">Host or IP</label>
-        <div class="target-row">
-          <input id="targetInput" type="text" placeholder="example.com or 1.1.1.1" />
-          <input id="labelInput" type="text" placeholder="Label for favorites" />
-        </div>
-        <div class="actions-grid">
-          <button data-action="ping">Ping</button>
-          <button data-action="traceroute">Traceroute</button>
-          <button data-action="geo">Geo</button>
-          <button data-action="save-favorite" class="secondary">Save favorite</button>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">Port Check</p>
-            <h2>Connectivity</h2>
+        <section class="hero-card">
+          <div class="hero-copy-block">
+            <p class="eyebrow">Telegram Mini App</p>
+            <h1>NetTool</h1>
+            <p class="hero-copy">
+              Run reconnaissance, inspect routes, locate hosts, and keep mission-critical servers pinned.
+            </p>
           </div>
-        </div>
-        <div class="target-row">
-          <input id="portInput" type="number" min="1" max="65535" value="443" />
-          <button id="portCheckButton">Check port</button>
-        </div>
-      </section>
-
-      <section class="grid">
-        <section class="card result-card">
-          <div class="section-head">
-            <div>
-              <p class="eyebrow">Results</p>
-              <h2>Signal Feed</h2>
+          <div class="hero-side">
+            <div class="hero-badge" id="userBadge">Guest mode</div>
+            <div class="hero-panel">
+              <span class="hero-panel-label">Status</span>
+              <strong>Link stable</strong>
             </div>
-            <span class="status-pill" id="statusPill">Idle</span>
           </div>
-          <pre id="resultOutput" class="result-output">Waiting for action...</pre>
+        </section>
+
+        <section class="card">
+          <label class="field-label" for="targetInput">Host or IP</label>
+          <div class="target-row">
+            <input id="targetInput" type="text" placeholder="example.com or 1.1.1.1" />
+            <input id="labelInput" type="text" placeholder="Label for favorites" />
+          </div>
+          <div class="actions-grid">
+            <button data-action="ping">Ping</button>
+            <button data-action="traceroute">Traceroute</button>
+            <button data-action="geo">Geo</button>
+            <button data-action="save-favorite" class="secondary">Save favorite</button>
+          </div>
         </section>
 
         <section class="card">
           <div class="section-head">
             <div>
-              <p class="eyebrow">Favorites</p>
-              <h2>Saved Nodes</h2>
+              <p class="eyebrow">Port Check</p>
+              <h2>Connectivity</h2>
             </div>
-            <button id="refreshFavorites" class="secondary compact">Refresh</button>
           </div>
-          <div id="favoritesList" class="favorites-list"></div>
+          <div class="target-row">
+            <input id="portInput" type="number" min="1" max="65535" value="443" />
+            <button id="portCheckButton">Check port</button>
+          </div>
         </section>
-      </section>
-    </main>
+
+        <section class="grid">
+          <section class="card result-card">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Results</p>
+                <h2>Signal Feed</h2>
+              </div>
+              <span class="status-pill" id="statusPill">Idle</span>
+            </div>
+            <pre id="resultOutput" class="result-output">Waiting for action...</pre>
+          </section>
+
+          <section class="card">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Favorites</p>
+                <h2>Saved Nodes</h2>
+              </div>
+              <button id="refreshFavorites" class="secondary compact">Refresh</button>
+            </div>
+            <div id="favoritesList" class="favorites-list"></div>
+          </section>
+        </section>
+      </main>
+    </div>
 
     <script src="/static/app.js" defer></script>
   </body>
